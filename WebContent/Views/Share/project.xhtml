@@ -74,7 +74,7 @@
 						<p:selectOneMenu disabled="#{!authories.pre}"
 							value="#{viewProject.dept}" onchange="submit()"
 							style="margin-left: 15px;width: 172px ;float: left;">
-							<p:ajax event="valueChange"
+							<p:ajax event="valueChange" update="projform"
 								listener="#{viewProject.changeDept(viewProject.dept)}" />
 							<f:selectItems value="#{viewProject.dList}" />
 						</p:selectOneMenu>
@@ -90,7 +90,7 @@
 		<div class="ui-grid-row">
 			<center
 				style="margin-left: auto; margin-right: auto; margin-top: 3px; margin-bottom: 3px; text-align: center;">
-
+				<h:form id="projform">
 				<p:dataGrid var="proj" value="#{viewProject.projList}" rows="12"
 					columns="5" paginator="true" style="width: 100%;"
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -115,6 +115,7 @@
 						</h:panelGrid>
 					</p:panel>
 				</p:dataGrid>
+				</h:form>
 			</center>
 		</div>
 	</div>

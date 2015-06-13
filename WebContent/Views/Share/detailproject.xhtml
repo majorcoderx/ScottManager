@@ -157,7 +157,7 @@
 							<p:panel header="#{asg.user.deptno}" style="text-align:center">
 								<h:panelGrid columns="2" style="width:100%">
 									<p:outputLabel value="Empno: " for="empno" style="float: left;" />
-									<p:commandLink id="empno" value="#{asg.user.empno}"
+									<p:commandLink id="empno" value="#{asg.user.empno}" disabled="#{!viewDetailProject.mgrProj}"
 										style="float: right;" action="#{viewDetailUser.getAction(asg.user.empno)}"/>
 									<p:outputLabel value="Ename: " for="ename" style="float: left;" />
 									<p:outputLabel id="ename" value="#{asg.user.ename}"

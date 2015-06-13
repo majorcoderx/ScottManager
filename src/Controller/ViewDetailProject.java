@@ -36,7 +36,6 @@ public class ViewDetailProject implements Serializable, ManagerCompany {
 	private boolean checkAvailable;
 	private ProjectDetailDB pdb;
 	private boolean isMgrProj;
-
 	
 	public boolean isMgrProj() {
 		Authories au = new Authories();

@@ -4,10 +4,8 @@ import SQLOracle.LoginDB;
 import Service.*;
 import ActionObject.*;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;  
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
 import java.io.Serializable;
 
@@ -18,13 +16,20 @@ public class Login implements Serializable, ManagerCompany  {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id = 0;
+	private String id = "";
 	private String password = "";
+	private String msg;
 
-	public int getId() {
+	public String getMsg() {
+		return msg;
+	}
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getPassword() {
@@ -40,7 +45,9 @@ public class Login implements Serializable, ManagerCompany  {
 	public String getAction() {
 		// TODO Auto-generated method stub
 		SQLOracle.LoginDB lgdb = new LoginDB();
-	lgdb.getUser(id, password);
+		if(!id.equals("")&&!password.equals("")){
+			lgdb.getUser(Integer.parseInt(id), password);
+		}
 		if(StaticValue.isLogged){
 			if(StaticValue.userLog.getJob().equals(Job.President)){
 				return "/Views/Personalized/prehome.xhtml?faces-redirect=true";
@@ -51,9 +58,8 @@ public class Login implements Serializable, ManagerCompany  {
 			else return "/Views/Personalized/otherhome.xhtml?faces-redirect=true";
 		}
 		else{
-			if(id ==0  && ! password.equals("")){
-				FacesContext context = FacesContext.getCurrentInstance();
-				context.addMessage(null, new FacesMessage("Loggin fail", "Try again, thank !"));
+			if(id.equals("")  || password.equals("")){
+				msg = "Check your password or ID";
 			}
 			return "";
 		}

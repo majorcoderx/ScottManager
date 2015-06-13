@@ -82,7 +82,7 @@
 									disabled="true" id="empno" value="#{viewDetailUser.user.empno}"
 									style="margin-right: 15px;width: 165px ;float: right;" /> </br>
 							<br><p:outputLabel value="Name: " for="ename"
-									style="margin-left: 5px; float: left;" /> <p:inputText 
+									style="margin-left: 5px; float: left;" /> <p:inputText disabled="#{!viewDetailUser.director}"
 									id="ename" required="true" value="#{viewDetailUser.user.ename}"
 									style="margin-right: 15px;width: 165px ;float: right;">
 								</p:inputText></br>
@@ -91,12 +91,15 @@
 							style="font-size: 15px; margin-top: 10px; width: 420px;">
 							<br> <p:outputLabel value="Job: " for="job"
 									style="margin-left: 5px;float: left;" /> 
-									<p:inputText id="job" value="#{viewDetailUser.user.job}"
-										style="margin-right: 15px;width: 165px ;float: right;"/> </br>
+									<p:selectOneMenu id="job" value="#{viewDetailUser.job}" disabled="#{!authories.mgr}"
+										style="margin-right: 15px;width: 172px ;float: right;">
+										<p:ajax event="valueChange" listener="#{viewDetailUser.changeJob(viewDetailUser.job)}"/>
+										<f:selectItems value="#{viewDetailUser.jlist}"/>	
+									</p:selectOneMenu> </br>
 							<br> <p:outputLabel value="Department: " for="dept"
 									style="margin-left: 5px;float: left;" /> 
 									<p:selectOneMenu
-									disabled="#{!authories.mgr}" id="dept" value="#{viewDetailUser.dname}"
+									disabled="#{!authories.pre}" id="dept" value="#{viewDetailUser.dname}"
 									style="margin-right: 15px;width: 172px ;float: right;">
 									<p:ajax event="valueChange" update="loc manager"
 										listener="#{viewDetailUser.changeDept(viewDetailUser.dname)}" />
@@ -109,15 +112,16 @@
 									style="margin-right: 15px;width: 165px ;float: right;" /> </br>
 							<br><p:outputLabel value="Director: " for="dir"
 									style="margin-left: 5px;float: left;" /> 
-									<p:selectOneMenu effect="fold" editable="true" value="#{viewDetailUser.dir.ename}"
-									disabled="false" id="dir" 
-									style="margin-right: 15px;width: 165px ;float: right;" >
-										<f:selectItems value="#{viewDetailUser.listDir}" var="dir" itemLabel="#{dir.ename}"/> 
+									<p:selectOneMenu effect="fold" editable="true" value="#{viewDetailUser.dir.ename}" 
+									disabled="#{!authories.mgr}" id="dir" 
+									style="margin-right: 15px;width: 172px ;float: right;" >
+										<f:selectItems value="#{viewDetailUser.listDir}" var="dir" itemLabel="#{dir.ename}"/>
+										<p:ajax event="valueChange" update="loc manager" listener="#{viewDetailUser.changeDirector(viewDetailUser.dir)}"/> 
 									</p:selectOneMenu></br>
 							<br><p:outputLabel value="Hire Date: " for="popup"
 									style="margin-left: 5px;float: left;" /> 
 									<p:calendar
-									disabled="#{!authories.pre}" id="popup"
+									disabled="#{!viewDetailUser.director}" id="popup"
 									value="#{viewDetailUser.user.hiredate}"
 									style="margin-right: 20px;width: 170px ;float: right;" /> </br>
 							<br><p:outputLabel value="Localtion: " for="loc"

@@ -60,6 +60,7 @@ public class Navigate implements Serializable {
 	public String logout(){
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession(); //remove session
 		StaticValue.userLog = null;
+		StaticValue.isLogged = false;
 		try{
 			ConnToDB.st.close();
 			ConnToDB.conn.close();

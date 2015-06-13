@@ -51,7 +51,7 @@ public class Authories {
 		return false;
 	}
 	
-	public boolean isDir(int mgr) {
+	public boolean isDir(int mgr) { //user mgr
 		if (StaticValue.userLog.getJob().equals(Job.President)
 				|| StaticValue.userLog.getJob().equals(Job.Manager)
 				|| StaticValue.userLog.getEmpno() == mgr) {

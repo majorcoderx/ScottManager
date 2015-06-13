@@ -2,8 +2,11 @@ package SQLOracle;
 
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 import Models.Users;
+import Service.Job;
 
 public class UserDetailDB implements Serializable{
 	/**
@@ -30,5 +33,27 @@ public class UserDetailDB implements Serializable{
 			ex.printStackTrace();
 		}
 		return user;
+	}
+	
+	public List<String> getListJob(String job){
+		List<String> lj = new LinkedList<String>();
+		if(job.equals(Job.President)){
+			sql = "select distinct job from emp";
+		}
+		else if(job.equals(Job.Manager)){
+			sql = "select distinct job from emp where job != 'PRESIDENT' and job != 'MANAGER'";
+		}
+		else{
+			return lj;
+		}
+		try{
+			ConnToDB.rs = ConnToDB.st.executeQuery(sql);
+			while(ConnToDB.rs.next()){
+				lj.add(ConnToDB.rs.getString(1));
+			}
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		return lj;
 	}
 }
